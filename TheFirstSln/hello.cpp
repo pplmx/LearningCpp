@@ -1,10 +1,13 @@
 #include <iostream>
 
-// define int variable, and assign 4 directly
+constexpr auto Pi = 3.14159265354;
+const double pai = 3.1415926;
+
+// declare int variable, and assign 4 directly
 extern int aa = 4;
 int cc = 123;
 
-// define function
+// declare function
 int ret();
 
 /*
