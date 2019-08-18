@@ -62,6 +62,11 @@ int main(void) {
     std::cout << ::cc << std::endl;
     std::cout << kk << std::endl;
 
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d\n", i);
+    }
+
     return 0;
 }
 
