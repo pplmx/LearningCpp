@@ -68,7 +68,7 @@ int main(void) {
     // lambda expression
     // [capture](parameters)->return-type{statement}
     auto fun1 = [](int x, int y) { return x < y; };
-    auto fun2 = [](int x, int y) -> int { int z = x + y; return z + x; }
+    auto fun2 = [](int x, int y) -> int { int z = x + y; return z + x; };
 
 
     return 0;
