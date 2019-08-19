@@ -9,6 +9,7 @@ int cc = 123;
 
 // declare function
 int ret();
+void multiplication_table(void);
 
 /*
 parameter is none
@@ -62,14 +63,37 @@ int main(void) {
     std::cout << ::cc << std::endl;
     std::cout << kk << std::endl;
 
-    for (int i = 0; i < 10; i++)
-    {
-        printf("%d\n", i);
-    }
+    multiplication_table();
 
     return 0;
 }
 
 int ret() {
     return cc;
+}
+
+void multiplication_table(void) {
+    for (size_t i = 1; i < 10; i++)
+    {
+        for (size_t j = 1; j < i + 1; j++)
+        {
+            printf("%zu * %zu = %zu, ", j, i, j * i);
+        }
+        printf("\n");
+    }
+}
+
+void yang_hui_triangle(size_t floor) {
+    if (floor < 1)
+    {
+        printf("The floor should no be less than 1.");
+        return;
+    }
+    for (size_t i = 0; i < floor; i++)
+    {
+        for (size_t j = 0; j < 99; j++)
+        {
+            // TODO After learning the pointer
+        }
+    }
 }
