@@ -10,6 +10,8 @@ int cc = 123;
 // declare function
 int ret();
 void multiplication_table(void);
+void arr(void);
+void pointer(void);
 
 /*
 parameter is none
@@ -70,12 +72,43 @@ int main(void) {
     auto fun1 = [](int x, int y) { return x < y; };
     auto fun2 = [](int x, int y) -> int { int z = x + y; return z + x; };
 
-
+    arr();
+    pointer();
     return 0;
 }
 
 int ret() {
     return cc;
+}
+
+void pointer(void) {
+    int temp = 100;
+    int *ip = &temp;// int *ip; ip = &temp;
+    std::cout << "The *ip is : " << *ip << std::endl; // temp value
+    std::cout << "The ip is : " << ip << std::endl; // temp address
+    std::cout << "The &ip is : " << &ip << std::endl; // pointer's own address
+    std::cout << "The &*ip is : " << &*ip << std::endl; // temp address
+    std::cout << "The temp is : " << temp << std::endl; // temp value
+    std::cout << "The &temp is : " << &temp << std::endl; // temp address
+    std::cout << "The *&temp is : " << *&temp << std::endl; // temp value
+    // All in all
+    // & is to get the memory addr of a variable(Get Addr)
+    // * is to get the value by memory addr(Get Val)
+}
+
+void arr(void) {
+    // char array must be ended with NULL
+    char a1[] = { 'a','b','c' }; // initialization without NULL
+    char a2[] = { 'a','b','c', '\0' }; // initialization with NULL
+    char a3[] = "C++"; // automatically append NULL
+    const char a4[6] = "hello"; // automatically append NULL
+    char a5[15] = "0123456789";
+    printf("The length of a1: %zu\n", sizeof(a1)); // 3
+    printf("The length of a2: %zu\n", sizeof(a2)); // 4
+    printf("The length of a3: %zu\n", sizeof(a3)); // 4
+    printf("The length of a4: %zu\n", sizeof(a4)); // 6
+    printf("The length of a5: %zu\n", sizeof a5); // 15
+    printf("The length of a5: %zu\n", strlen(a5)); // 10
 }
 
 void multiplication_table(void) {
