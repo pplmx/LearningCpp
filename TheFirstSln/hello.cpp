@@ -83,7 +83,7 @@ int ret() {
 
 void pointer(void) {
     int temp = 100;
-    int *ip = &temp;// int *ip; ip = &temp;
+    int* ip = &temp;// int *ip; ip = &temp;
     std::cout << "The *ip is : " << *ip << std::endl; // temp value
     std::cout << "The ip is : " << ip << std::endl; // temp address
     std::cout << "The &ip is : " << &ip << std::endl; // pointer's own address
