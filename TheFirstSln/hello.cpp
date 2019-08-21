@@ -16,6 +16,14 @@ void pointer(void);
 size_t generate_rand();
 void reference(void);
 
+struct Books
+{
+    char  title[50];
+    char  author[50];
+    char  subject[100];
+    int   book_id;
+};
+
 /*
 parameter is none
 return is int
@@ -78,6 +86,21 @@ int main(void) {
     arr();
     pointer();
     reference();
+
+    // struct
+    Books book1;
+    Books book2;
+
+    strcpy_s(book1.title, "Machine Learning in Action");
+    strcpy_s(book1.author, "Unknown");
+    strcpy_s(book1.subject, "Machine Learning");
+    book1.book_id = 123;
+
+    std::cout << "Title: " << book1.title << std::endl;
+    std::cout << "Author: " << book1.author << std::endl;
+    std::cout << "Subject: " << book1.subject << std::endl;
+    std::cout << "ID: " << book1.book_id << std::endl;
+
     return 0;
 }
 
@@ -95,7 +118,7 @@ void reference(void) {
     int& ref = i;
     // Personally, ref is the alias of i.
     std::cout << "The val of ref: " << ref << std::endl;
-    std::cout << "The addr of ref: "<< &ref << std::endl;
+    std::cout << "The addr of ref: " << &ref << std::endl;
     std::cout << "The addr of i: " << &i << std::endl;
     std::cout << "The val of i: " << i << std::endl;
 }
