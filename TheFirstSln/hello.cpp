@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 
 constexpr auto Pi = 3.14159265354;
 const double pai = 3.1415926;
@@ -12,6 +13,8 @@ int ret();
 void multiplication_table(void);
 void arr(void);
 void pointer(void);
+size_t generate_rand();
+void reference(void);
 
 /*
 parameter is none
@@ -74,11 +77,27 @@ int main(void) {
 
     arr();
     pointer();
+    reference();
     return 0;
 }
 
 int ret() {
     return cc;
+}
+
+size_t generate_rand() {
+    srand((unsigned)time(NULL));
+    return rand();
+}
+
+void reference(void) {
+    int i = 10;
+    int& ref = i;
+    // Personally, ref is the alias of i.
+    std::cout << "The val of ref: " << ref << std::endl;
+    std::cout << "The addr of ref: "<< &ref << std::endl;
+    std::cout << "The addr of i: " << &i << std::endl;
+    std::cout << "The val of i: " << i << std::endl;
 }
 
 void pointer(void) {
@@ -94,6 +113,17 @@ void pointer(void) {
     // All in all
     // & is to get the memory addr of a variable(Get Addr)
     // * is to get the value by memory addr(Get Val)
+
+    double balance[5] = { 1000.0, 2.0, 3.4, 17.0, 50.0 };
+    // balance is the balance[0]'s address
+    double* p = balance;
+    // Actually, To calculate the size of a memory address
+    std::cout << "The size of pointer: " << sizeof p << std::endl;
+    printf("balance[0] = %.1f\t *p = %.1f\t\t p[0] = %.1f\n", balance[0], *p, p[0]);
+    printf("balance[1] = %.1f\t *(p + 1) = %.1f\t\t p[1] = %.1f\n", balance[1], *(p + 1), p[1]);
+    printf("balance[2] = %.1f\t *(p + 2) = %.1f\t\t p[2] = %.1f\n", balance[2], *(p + 2), p[2]);
+    printf("balance[3] = %.1f\t *(p + 3) = %.1f\t p[3] = %.1f\n", balance[3], *(p + 3), p[3]);
+    printf("balance[4] = %.1f\t *(p + 4) = %.1f\t p[4] = %.1f\n", balance[4], *(p + 4), p[4]);
 }
 
 void arr(void) {
