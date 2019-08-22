@@ -17,8 +17,7 @@ size_t generate_rand();
 void reference(void);
 void print_book(struct Books book);
 
-struct Books
-{
+struct Books {
     char  title[50];
     char  author[50];
     char  subject[100];
@@ -48,8 +47,7 @@ int main(void) {
     typedef bool boolean;
     boolean is_Okay = false;
 
-    enum month
-    {
+    enum month {
         Jan, // 0, enum is from 0, then autoincrease +1
         Feb = 2,
         March, // 3, it's up to the previous value
@@ -59,8 +57,7 @@ int main(void) {
     enum month mon = March;
 
     // define enum weekday variable "day"
-    enum weekday
-    {
+    enum weekday {
         Sun, //0
         Mon, //1
         Tues, //2
@@ -103,7 +100,7 @@ int main(void) {
     print_book(*book_p);
     // <=>
     print_book(book1);
-    // if you wanna access struct member, you need use ->
+    // if you wanna access struct member by struct pointer, you need use ->
     std::cout << "Title(book_p->title): " << book_p->title << std::endl;
 
     return 0;
@@ -177,10 +174,8 @@ void arr(void) {
 }
 
 void multiplication_table(void) {
-    for (size_t i = 1; i < 10; i++)
-    {
-        for (size_t j = 1; j < i + 1; j++)
-        {
+    for (size_t i = 1; i < 10; i++) {
+        for (size_t j = 1; j < i + 1; j++) {
             printf("%zu * %zu = %zu, ", j, i, j * i);
         }
         printf("\n");
@@ -188,15 +183,12 @@ void multiplication_table(void) {
 }
 
 void yang_hui_triangle(size_t floor) {
-    if (floor < 1)
-    {
+    if (floor < 1) {
         printf("The floor should no be less than 1.");
         return;
     }
-    for (size_t i = 0; i < floor; i++)
-    {
-        for (size_t j = 0; j < 99; j++)
-        {
+    for (size_t i = 0; i < floor; i++) {
+        for (size_t j = 0; j < 99; j++) {
             // TODO After learning the pointer
         }
     }
