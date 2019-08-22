@@ -15,6 +15,7 @@ void arr(void);
 void pointer(void);
 size_t generate_rand();
 void reference(void);
+void print_book(struct Books book);
 
 struct Books
 {
@@ -96,16 +97,27 @@ int main(void) {
     strcpy_s(book1.subject, "Machine Learning");
     book1.book_id = 123;
 
-    std::cout << "Title: " << book1.title << std::endl;
-    std::cout << "Author: " << book1.author << std::endl;
-    std::cout << "Subject: " << book1.subject << std::endl;
-    std::cout << "ID: " << book1.book_id << std::endl;
+    // define a struct pointer
+    struct Books *book_p;
+    book_p = &book1;
+    print_book(*book_p);
+    // <=>
+    print_book(book1);
+    // if you wanna access struct member, you need use ->
+    std::cout << "Title(book_p->title): " << book_p->title << std::endl;
 
     return 0;
 }
 
 int ret() {
     return cc;
+}
+
+void print_book(struct Books book) {
+    std::cout << "Title: " << book.title << std::endl;
+    std::cout << "Author: " << book.author << std::endl;
+    std::cout << "Subject: " << book.subject << std::endl;
+    std::cout << "ID: " << book.book_id << std::endl;
 }
 
 size_t generate_rand() {
