@@ -98,7 +98,7 @@ int main(void) {
     book1.book_id = 123;
 
     // define a struct pointer
-    struct Books *book_p;
+    Books* book_p;
     book_p = &book1;
     print_book(*book_p);
     // <=>
