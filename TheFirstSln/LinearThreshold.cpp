@@ -2,6 +2,19 @@
 #include <iostream>
 using namespace std;
 
+struct Graph {
+    /*undirected graph
+    implemented by adjacency multilist
+    */
+
+};
+
+struct DiGraph {
+    /*directed graph
+    implemented by orthogonal list
+    */
+};
+
 class LTModel {
 public:
     LTModel();
