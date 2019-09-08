@@ -18,9 +18,6 @@
     <ClCompile Include="hello.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OrientedObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LinearThreshold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

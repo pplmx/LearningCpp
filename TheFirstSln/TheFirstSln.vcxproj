@@ -126,7 +126,6 @@
   <ItemGroup>
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="LinearThreshold.cpp" />
-    <ClCompile Include="OrientedObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
