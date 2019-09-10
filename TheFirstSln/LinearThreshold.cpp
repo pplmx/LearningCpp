@@ -2,19 +2,6 @@
 #include <iostream>
 using namespace std;
 
-struct Graph {
-    /*undirected graph
-    implemented by adjacency multilist
-    */
-
-};
-
-struct DiGraph {
-    /*directed graph
-    implemented by orthogonal list
-    */
-};
-
 class LTModel {
 public:
     LTModel();
@@ -27,21 +14,26 @@ private:
     int* seeds;
 };
 
-LTModel::LTModel() {
+LTModel::LTModel()
+{
     seeds = new int;
 }
 
-LTModel::LTModel(int num) : steps(num) {
+LTModel::LTModel(int num)
+    : steps(num)
+{
     cout << "LTModel is being created now." << endl;
     seeds = new int;
 }
 
-LTModel::LTModel(const LTModel& obj) {
+LTModel::LTModel(const LTModel& obj)
+{
     seeds = new int;
     *seeds = *obj.seeds;
 }
 
-LTModel::~LTModel() {
+LTModel::~LTModel()
+{
     cout << "LTModel is being deleted now." << endl;
     delete seeds;
 }
