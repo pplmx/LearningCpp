@@ -1,12 +1,31 @@
-
 /*
 undirected graph
 implemented by adjacency multilist
 */
-struct Graph {
+class Graph {
+public:
+    // only contains the two nodes of edge
+    Graph(int edge[][2]);
+    // except two nodes, contains the weight of edge
+    Graph(int edge[][3]);
+    ~Graph();
+
+private:
     int vertex_num, edge_num;
-    Adjacency_multi_list list;
+    Vertex* adj_multi_list;
 };
+
+Graph::Graph(int edge[][2])
+{
+}
+
+Graph::Graph(int edge[][3])
+{
+}
+
+Graph::~Graph()
+{
+}
 
 /*
 directed graph
@@ -18,14 +37,16 @@ struct DiGraph {
 };
 
 struct Adjacency_multi_list {
+    Vertex* adj_multi_list;
 };
 
 struct Orthogonal_list {
 };
 
 struct Vertex {
+    int v;
+    Edge* first_arc;
     double threshold;
-    Edge* first_link;
 };
 
 struct Edge {
@@ -33,6 +54,6 @@ struct Edge {
     bool is_visited;
     // the two node of an edge
     int u, v;
-    Edge *u_link, *v_link;
+    Edge *u_next_arc, *v_next_arc;
     double weight;
 };
