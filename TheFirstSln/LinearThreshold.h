@@ -15,6 +15,22 @@ private:
     Vertex* adj_multi_list;
 };
 
+class Digraph {
+public:
+    Digraph();
+    ~Digraph();
+
+private:
+};
+
+Digraph::Digraph()
+{
+}
+
+Digraph::~Digraph()
+{
+}
+
 Graph::Graph(int edge[][2])
 {
 }
