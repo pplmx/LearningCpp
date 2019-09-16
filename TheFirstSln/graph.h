@@ -11,9 +11,22 @@ public:
     ~GraphUtils();
 
 private:
-    int vertex_num, edge_num;
-    Vertex* adj_multi_list;
+    Graph graph;
 };
+
+GraphUtils::GraphUtils(int edge[][2])
+{
+    size_t length = len(edge);
+    for (size_t i = 0; i < length; i++) {
+        for (size_t j = 0; j < 2; j++) {
+            edge[i][j];
+        }
+    }
+}
+
+GraphUtils::GraphUtils(int edge[][3])
+{
+}
 
 /*
 undirected graph
@@ -24,15 +37,11 @@ struct Graph {
     Adjacency_multi_list list;
 };
 
-struct Adjacency_multi_list {
-    Vertex* adj_multi_list;
-};
-
-struct Vertex {
-    VertexType v;
+typedef struct Vertex {
+    VertexType data;
     Edge* first_edge;
     double threshold;
-};
+} * Adjacency_multi_list;
 
 struct Edge {
     // mark that whether an edge is visited
@@ -42,3 +51,8 @@ struct Edge {
     Edge *u_next_edge, *v_next_edge;
     double weight;
 };
+
+template<typename T>
+int len(T& arr) {
+    return sizeof arr / sizeof arr[0]
+}
