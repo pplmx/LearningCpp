@@ -128,8 +128,8 @@
     <ClCompile Include="LinearThreshold.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
-    <ClInclude Include="LinearThreshold.h" />
+    <ClInclude Include="di_graph.h" />
+    <ClInclude Include="graph.h" />
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

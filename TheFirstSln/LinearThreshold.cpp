@@ -1,4 +1,5 @@
-#include "LinearThreshold.h"
+#pragma once
+
 #include <iostream>
 using namespace std;
 
@@ -37,3 +38,4 @@ LTModel::~LTModel()
     cout << "LTModel is being deleted now." << endl;
     delete seeds;
 }
+
