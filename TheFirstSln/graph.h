@@ -30,7 +30,7 @@ struct Adjacency_multi_list {
 
 struct Vertex {
     VertexType v;
-    Edge* first_arc;
+    Edge* first_edge;
     double threshold;
 };
 
@@ -39,6 +39,6 @@ struct Edge {
     bool is_visited;
     // the two node of an edge
     int u, v;
-    Edge *u_next_arc, *v_next_arc;
+    Edge *u_next_edge, *v_next_edge;
     double weight;
 };
