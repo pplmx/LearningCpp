@@ -128,7 +128,7 @@
     <ClCompile Include="LinearThreshold.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="di_graph.h" />
+    <ClInclude Include="digraph.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>

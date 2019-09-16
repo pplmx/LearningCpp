@@ -29,7 +29,7 @@
     <ClInclude Include="graph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="di_graph.h">
+    <ClInclude Include="digraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
