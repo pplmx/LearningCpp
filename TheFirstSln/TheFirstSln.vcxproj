@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="graph.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="LinearThreshold.cpp" />
   </ItemGroup>
