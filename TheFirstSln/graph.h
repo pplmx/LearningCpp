@@ -1,7 +1,5 @@
 #pragma once
-
 typedef int VertexType;
-
 /*
 undirected graph
 implemented by adjacency multilist
@@ -10,7 +8,6 @@ struct Graph {
     int vertex_num, edge_num;
     Adj_multi_list list;
 };
-
 
 class GraphUtils {
 public:
@@ -22,7 +19,7 @@ public:
     ~GraphUtils();
 
 private:
-    Graph *graph;
+    Graph* graph;
 };
 
 GraphUtils::GraphUtils(int edge[][2])
@@ -30,7 +27,14 @@ GraphUtils::GraphUtils(int edge[][2])
     size_t length = len(edge);
     for (size_t i = 0; i < length; i++) {
         for (size_t j = 0; j < 2; j++) {
-            this->graph->list->first_edge->u = edge[i][j];
+            if (j == 0) {
+                this->graph->list->data = edge[i][j];
+                this->graph->list->first_edge->u = edge[i][j];
+                // this->graph->list->first_edge->u_next_edge = ? ;
+            } else {
+                this->graph->list->first_edge->v = edge[i][j];
+                // this->graph->list->first_edge->v_next_edge = ? ;
+            }
         }
     }
 }
@@ -38,7 +42,6 @@ GraphUtils::GraphUtils(int edge[][2])
 GraphUtils::GraphUtils(int edge[][3])
 {
 }
-
 
 typedef struct Vertex {
     VertexType data;
@@ -55,6 +58,7 @@ struct Edge {
     double weight;
 };
 
+// get the length of array
 template <typename T>
 int len(T& arr)
 {
