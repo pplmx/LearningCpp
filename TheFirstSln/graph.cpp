@@ -1,6 +1,8 @@
 #pragma once
 #include "graph.h"
 #include <iostream>
+#include <algorithm>
+#include <tuple>
 using namespace std;
 GraphUtils::GraphUtils(int edge[][2])
 {
@@ -22,6 +24,10 @@ GraphUtils::GraphUtils(int edge[][2])
 }
 
 GraphUtils::GraphUtils(int edge[][3])
+{
+}
+
+GraphUtils::GraphUtils(const GraphUtils& obj)
 {
 }
 
@@ -47,26 +53,24 @@ set<int> GraphUtils::get_vertex_set(int (*edge)[2])
     return vertex_set;
 }
 
-set<pair<int, int>> GraphUtils::get_edge_set(int (*edge)[2])
+set<tuple<int, int>> GraphUtils::get_edge_set(int (*edge)[2])
 {
 
-    return set<pair<int, int>>();
+    return set<tuple<int, int>>();
 }
 
-// get the length of array
-template <typename T>
-size_t len(T& arr)
-{
-    return sizeof arr / sizeof arr[0];
+void myfunc(tuple<int, int> i)
+{ // function:
+    std::cout << ' ' << get<0>(i) << ' ' << get<1>(i) << std::endl;
 }
 
 int main()
 {
-    set<pair<int, int>> edge_set;
-    edge_set.insert(make_pair(2, 3));
-    edge_set.insert(make_pair(1, 2));
-    edge_set.insert(make_pair(2, 1));
-    edge_set.insert(make_pair(2, 3));
-    
+    set<tuple<int, int>> edge_set;
+    edge_set.insert(make_tuple(2, 3));
+    edge_set.insert(make_tuple(1, 2));
+    edge_set.insert(make_tuple(2, 1));
+    edge_set.insert(make_tuple(2, 3));
+    for_each(edge_set.begin(), edge_set.end(), myfunc);
     return 0;
 }
