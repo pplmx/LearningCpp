@@ -1,7 +1,7 @@
 #pragma once
 #include "graph.h"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <tuple>
 using namespace std;
 GraphUtils::GraphUtils(int edge[][2])
@@ -60,7 +60,7 @@ set<tuple<int, int>> GraphUtils::get_edge_set(int (*edge)[2])
 }
 
 void myfunc(tuple<int, int> i)
-{ // function:
+{
     std::cout << ' ' << get<0>(i) << ' ' << get<1>(i) << std::endl;
 }
 
