@@ -66,10 +66,13 @@ void myfunc(tuple<int, int> i)
 
 int main()
 {
-    set<tuple<int, int>> edge_set;
+    set<tuple<int, int>, decltype(&edge_compare)> edge_set(&edge_compare);
     edge_set.insert(make_tuple(2, 3));
+
     edge_set.insert(make_tuple(1, 2));
+
     edge_set.insert(make_tuple(2, 1));
+
     edge_set.insert(make_tuple(2, 3));
     for_each(edge_set.begin(), edge_set.end(), myfunc);
     return 0;

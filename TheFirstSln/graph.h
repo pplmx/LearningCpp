@@ -1,6 +1,7 @@
 #pragma once
 #include <set>
 #include <tuple>
+
 using namespace std;
 
 typedef int VertexType;
@@ -48,41 +49,40 @@ private:
     int locate_vertex(Graph* g, VertexType v);
 };
 
-bool operator==(tuple<int, int, double> t1, tuple<int, int, double> t2)
+bool edge_compare(const tuple<int, int>& t1, const tuple<int, int>& t2)
 {
-    if (get<0>(t1) == get<0>(t2) && get<1>(t1) == get<1>(t2)) {
-        // (1, 2, 0.4) == (1, 2, 0.6)
-        return true;
-    } else if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
-        // (1, 2, 0.4) == (2, 1, 0.6)
-        return true;
-    }
-    return false;
-}
 
-template <typename T>
-bool operator==(const tuple<T, T>& t1, const tuple<T, T>& t2)
-{
+    // remove the repeated
     if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
         // (1, 2) == (2, 1)
-        return true;
-    } else if (get<0>(t1) == get<0>(t2) && get<1>(t1) == get<1>(t2)) {
-        // (1, 2) == (1, 2)
-        return true;
+        return false;
     }
-    return false;
-}
 
-template <typename T>
-bool operator<(const tuple<T, T>& t1, const tuple<T, T>& t2)
-{
     // sort by ascend
     if (get<0>(t1) == get<0>(t2)) {
         // (1, 1), (1, 2), (1, 3)
-        return get<1>(t1) > get<1>(t2);
+        return get<1>(t1) < get<1>(t2);
     }
     // (1, 2), (3, 2), (5, 9)
-    return get<0>(t1) > get<0>(t2);
+    return get<0>(t1) < get<0>(t2);
+}
+
+bool edge_w_compare(const tuple<int, int, double>& t1, const tuple<int, int, double>& t2)
+{
+
+    // remove the repeated
+    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
+        // (1, 2) == (2, 1)
+        return false;
+    }
+
+    // sort by ascend
+    if (get<0>(t1) == get<0>(t2)) {
+        // (1, 1), (1, 2), (1, 3)
+        return get<1>(t1) < get<1>(t2);
+    }
+    // (1, 2), (3, 2), (5, 9)
+    return get<0>(t1) < get<0>(t2);
 }
 
 // get the length of array
