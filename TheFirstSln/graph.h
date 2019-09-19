@@ -2,6 +2,45 @@
 #include <set>
 #include <tuple>
 
+namespace std {
+// a edge without weight
+typedef tuple<int, int> edge_tuple;
+// a edge with weight
+typedef tuple<int, int, double> edge_w_tuple;
+bool operator<(const edge_tuple& t1, const edge_tuple& t2)
+{
+    // remove the repeated
+    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
+        // (1, 2) == (2, 1)
+        return false;
+    }
+
+    // sort by ascend
+    if (get<0>(t1) == get<0>(t2)) {
+        // (1, 1), (1, 2), (1, 3)
+        return get<1>(t1) < get<1>(t2);
+    }
+    // (1, 2), (3, 2), (5, 9)
+    return get<0>(t1) < get<0>(t2);
+}
+
+bool operator<(const edge_w_tuple& t1, const edge_w_tuple& t2)
+{
+    // remove the repeated
+    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
+        // (1, 2) == (2, 1)
+        return false;
+    }
+
+    // sort by ascend
+    if (get<0>(t1) == get<0>(t2)) {
+        // (1, 1), (1, 2), (1, 3)
+        return get<1>(t1) < get<1>(t2);
+    }
+    // (1, 2), (3, 2), (5, 9)
+    return get<0>(t1) < get<0>(t2);
+}
+}
 using namespace std;
 
 typedef int VertexType;
@@ -37,15 +76,22 @@ public:
     // except two nodes, contains the weight of edge
     GraphUtils(double edge[][3]);
     GraphUtils(const GraphUtils& obj);
+    set<int> get_vertex_set();
+    set<edge_tuple> get_edge_set();
+    set<edge_w_tuple> get_edge_w_set();
     ~GraphUtils();
 
 private:
     Graph* graph;
+    set<int> vertex_set;
+    set<edge_tuple> edge_set;
+    set<edge_w_tuple> edge_w_set;
+
     set<int> get_vertex_set(int (*edge)[2]);
-    set<tuple<int, int>> get_edge_set(int (*edge)[2]);
+    set<edge_tuple> get_edge_set(int (*edge)[2]);
 
     set<int> get_vertex_set(double (*edge)[3]);
-    set<tuple<int, int, double>> get_edge_set(double (*edge)[3]);
+    set<edge_w_tuple> get_edge_set(double (*edge)[3]);
     int locate_vertex(Graph* g, VertexType v);
 };
 
