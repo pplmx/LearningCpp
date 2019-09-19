@@ -23,7 +23,7 @@ GraphUtils::GraphUtils(int edge[][2])
     }
 }
 
-GraphUtils::GraphUtils(int edge[][3])
+GraphUtils::GraphUtils(double edge[][3])
 {
 }
 
