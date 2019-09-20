@@ -4,36 +4,66 @@
 #include <iostream>
 #include <tuple>
 using namespace std;
-GraphUtils::GraphUtils(int edge[][2])
+GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
-    size_t length = len(edge);
-    this->graph->vertex_num = GraphUtils::get_vertex_set(edge).size();
-    for (size_t i = 0; i < length; i++) {
-        for (size_t j = 0; j < 2; j++) {
-            int idx = locate_vertex(this->graph, edge[i][j]);
-            if (j == 0) {
-                this->graph->list[idx].data = edge[i][j];
-                this->graph->list[idx].first_edge->u = edge[i][j];
-                // this->graph->list->first_edge->u_next_edge = ? ;
-            } else {
-                this->graph->list[idx].first_edge->v = edge[i][j];
-                // this->graph->list->first_edge->v_next_edge = ? ;
-            }
-        }
+    // init edge_set(to remove the repeated edge)
+    this->set_edge_set(edge_set);
+    // init edge_w_set as empty set
+    this->edge_w_set = set<edge_w_tuple>();
+
+    // init vertex_set
+    this->set_vertex_set(this->edge_set);
+
+    // init graph
+    this->graph->vertex_num = this->vertex_set.size();
+    this->graph->edge_num = this->edge_set.size();
+
+    size_t idx = 0;
+    for (auto vertex : this->vertex_set) {
+        this->graph->list[idx].data = vertex;
+        this->graph->list[idx].first_edge = new Edge;
+        this->graph->list[idx].threshold = 0;
+        idx++;
     }
 }
 
-GraphUtils::GraphUtils(double edge[][3])
+GraphUtils::GraphUtils(set<edge_w_tuple> edge_set)
 {
+    // init edge_w_set(to remove the repeated edge)
+    this->set_edge_set(edge_set);
+    // init edge_set as empty set
+    this->edge_set = set<edge_tuple>();
+
+    // init vertex_set
+    this->set_vertex_set(this->edge_w_set);
+
+    // init graph
+    this->graph->vertex_num = this->vertex_set.size();
+    this->graph->edge_num = this->edge_w_set.size();
 }
 
 GraphUtils::GraphUtils(const GraphUtils& obj)
 {
 }
 
+set<int> GraphUtils::get_vertex_set()
+{
+    return this->vertex_set;
+}
+
+set<edge_tuple> GraphUtils::get_edge_set()
+{
+    return this->edge_set;
+}
+
+set<edge_w_tuple> GraphUtils::get_edge_w_set()
+{
+    return this->edge_w_set;
+}
+
 int GraphUtils::locate_vertex(Graph* g, VertexType v)
 {
-    for (size_t i = 0; i < g->vertex_num; i++) {
+    for (int i = 0; i < g->vertex_num; i++) {
         if (g->list[i].data == v) {
             return i;
         }
@@ -41,57 +71,34 @@ int GraphUtils::locate_vertex(Graph* g, VertexType v)
     return -1;
 }
 
-set<int> GraphUtils::get_vertex_set(int (*edge)[2])
+void GraphUtils::set_vertex_set(set<edge_tuple> edge_set)
 {
-    set<int> vertex_set;
-    size_t length = len(edge);
-    for (size_t i = 0; i < length; i++) {
-        for (size_t j = 0; j < 2; j++) {
-            vertex_set.insert(edge[i][j]);
-        }
+    for (auto edge : edge_set) {
+        this->vertex_set.insert(get<0>(edge));
+        this->vertex_set.insert(get<1>(edge));
     }
-    this->vertex_set = vertex_set;
-    return vertex_set;
 }
 
-set<int> GraphUtils::get_vertex_set(double (*edge)[3])
+void GraphUtils::set_vertex_set(set<edge_w_tuple> edge_set)
 {
-    set<int> vertex_set;
-    size_t length = len(edge);
-    for (size_t i = 0; i < length; i++) {
-        for (size_t j = 0; j < 2; j++) {
-            vertex_set.insert(edge[i][j]);
-        }
-    }
-    this->vertex_set = vertex_set;
-    return vertex_set;
+    for_each(edge_set.begin(), edge_set.end(), [this](const auto& edge) {
+        this->vertex_set.insert(get<0>(edge));
+        this->vertex_set.insert(get<1>(edge));
+    });
 }
 
-set<edge_tuple> GraphUtils::get_edge_set(int (*edge)[2])
+void GraphUtils::set_edge_set(set<edge_tuple> edge_set)
 {
-    set<edge_tuple> edge_set;
-    size_t length = len(edge);
-    for (size_t i = 0; i < length; i++) {
-        edge_set.insert(make_tuple(edge[i][0], edge[i][1]));
+    for (auto edge : edge_set) {
+        this->edge_set.insert(edge);
     }
-    this->edge_set = edge_set;
-    return edge_set;
 }
 
-set<edge_w_tuple> GraphUtils::get_edge_set(double (*edge)[3])
+void GraphUtils::set_edge_set(set<edge_w_tuple> edge_set)
 {
-    set<edge_w_tuple> edge_set;
-    size_t length = len(edge);
-    for (size_t i = 0; i < length; i++) {
-        edge_set.insert(make_tuple(edge[i][0], edge[i][1], edge[i][2]));
+    for (auto edge : edge_set) {
+        this->edge_w_set.insert(edge);
     }
-    this->edge_w_set = edge_set;
-    return edge_set;
-}
-
-void myfunc(tuple<int, int, double> i)
-{
-    std::cout << ' ' << get<0>(i) << ' ' << get<1>(i) << ' ' << get<2>(i) << std::endl;
 }
 
 int main()
@@ -106,6 +113,8 @@ int main()
     edge_set.insert(make_tuple(2, 1, 0.9));
 
     edge_set.insert(make_tuple(2, 3, 0.5));
-    for_each(edge_set.begin(), edge_set.end(), myfunc);
+    for_each(edge_set.begin(), edge_set.end(), [](const auto& edge) {
+        std::cout << ' ' << get<0>(edge) << ' ' << get<1>(edge) << ' ' << get<2>(edge) << std::endl;
+    });
     return 0;
 }

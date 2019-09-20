@@ -72,9 +72,9 @@ struct Graph {
 class GraphUtils {
 public:
     // only contains the two nodes of edge
-    GraphUtils(int edge[][2]);
+    GraphUtils(set<edge_tuple> edge_set);
     // except two nodes, contains the weight of edge
-    GraphUtils(double edge[][3]);
+    GraphUtils(set<edge_w_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
     set<int> get_vertex_set();
     set<edge_tuple> get_edge_set();
@@ -87,11 +87,11 @@ private:
     set<edge_tuple> edge_set;
     set<edge_w_tuple> edge_w_set;
 
-    set<int> get_vertex_set(int (*edge)[2]);
-    set<edge_tuple> get_edge_set(int (*edge)[2]);
+    void set_vertex_set(set<edge_tuple> edge_set);
+    void set_vertex_set(set<edge_w_tuple> edge_set);
 
-    set<int> get_vertex_set(double (*edge)[3]);
-    set<edge_w_tuple> get_edge_set(double (*edge)[3]);
+    void set_edge_set(set<edge_tuple> edge_set);
+    void set_edge_set(set<edge_w_tuple> edge_set);
     int locate_vertex(Graph* g, VertexType v);
 };
 
@@ -133,7 +133,7 @@ bool edge_w_compare(const tuple<int, int, double>& t1, const tuple<int, int, dou
 
 // get the length of array
 template <typename T>
-size_t len(T& arr)
+const size_t len(const T& arr)
 {
     return sizeof arr / sizeof arr[0];
 }
