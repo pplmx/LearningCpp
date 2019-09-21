@@ -15,15 +15,20 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->set_vertex_set(this->edge_set);
 
     // init graph
+    this->graph = new Graph;
     this->graph->vertex_num = this->vertex_set.size();
     this->graph->edge_num = this->edge_set.size();
 
-    size_t idx = 0;
+    // init adjacency multi-list
+    size_t u, v, idx = 0;
     for (auto vertex : this->vertex_set) {
         this->graph->list[idx].data = vertex;
-        this->graph->list[idx].first_edge = new Edge;
+        this->graph->list[idx].first_edge = NULL;
         this->graph->list[idx].threshold = 0;
         idx++;
+    }
+    idx = 0;
+    for (auto edge : this->edge_set) {
     }
 }
 
@@ -38,12 +43,17 @@ GraphUtils::GraphUtils(set<edge_w_tuple> edge_set)
     this->set_vertex_set(this->edge_w_set);
 
     // init graph
+    this->graph = new Graph;
     this->graph->vertex_num = this->vertex_set.size();
     this->graph->edge_num = this->edge_w_set.size();
 }
 
 GraphUtils::GraphUtils(const GraphUtils& obj)
 {
+    // allocate the memory
+    this->graph = new Graph;
+    // copy the value
+    *(this->graph) = *obj.graph;
 }
 
 set<int> GraphUtils::get_vertex_set()
