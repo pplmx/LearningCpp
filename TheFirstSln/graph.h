@@ -48,8 +48,8 @@ typedef int VertexType;
 struct Edge {
     // mark that whether an edge is visited
     bool is_visited;
-    // the two node of an edge
-    int u, v;
+    // the index of two node of an edge in adj_multi_list
+    int u_idx, v_idx;
     Edge *u_next_edge, *v_next_edge;
     double weight;
 };

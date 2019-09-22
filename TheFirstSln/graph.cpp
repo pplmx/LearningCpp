@@ -20,15 +20,29 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->graph->edge_num = this->edge_set.size();
 
     // init adjacency multi-list
-    size_t u, v, idx = 0;
+    size_t idx = 0;
     for (auto vertex : this->vertex_set) {
         this->graph->list[idx].data = vertex;
         this->graph->list[idx].first_edge = NULL;
         this->graph->list[idx].threshold = 0;
         idx++;
     }
-    idx = 0;
+    int u, v, u_idx, v_idx;
     for (auto edge : this->edge_set) {
+        Edge* edge_ptr = new Edge;
+        u = get<0>(edge);
+        v = get<1>(edge);
+        u_idx = this->locate_vertex(this->graph, u);
+        v_idx = this->locate_vertex(this->graph, v);
+        edge_ptr->is_visited = false;
+
+        edge_ptr->u_idx = u_idx;
+        edge_ptr->u_next_edge = this->graph->list[u_idx].first_edge;
+        this->graph->list[u_idx].first_edge = edge_ptr;
+
+        edge_ptr->v_idx = v_idx;
+        edge_ptr->v_next_edge = this->graph->list[v_idx].first_edge;
+        this->graph->list[v_idx].first_edge = edge_ptr;
     }
 }
 
