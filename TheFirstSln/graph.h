@@ -77,8 +77,11 @@ public:
     GraphUtils(set<edge_w_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
     set<int> get_vertex_set();
+    set<int> get_vertex_set(VertexType data);
     set<edge_tuple> get_edge_set();
+    set<edge_tuple> get_edge_set(VertexType data);
     set<edge_w_tuple> get_edge_w_set();
+    set<edge_w_tuple> get_edge_w_set(VertexType data);
     ~GraphUtils();
 
 private:

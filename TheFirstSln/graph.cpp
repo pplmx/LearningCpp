@@ -76,14 +76,29 @@ set<int> GraphUtils::get_vertex_set()
     return this->vertex_set;
 }
 
+set<int> GraphUtils::get_vertex_set(VertexType data)
+{
+    return set<int>();
+}
+
 set<edge_tuple> GraphUtils::get_edge_set()
 {
     return this->edge_set;
 }
 
+set<edge_tuple> GraphUtils::get_edge_set(VertexType data)
+{
+    return set<edge_tuple>();
+}
+
 set<edge_w_tuple> GraphUtils::get_edge_w_set()
 {
     return this->edge_w_set;
+}
+
+set<edge_w_tuple> GraphUtils::get_edge_w_set(VertexType data)
+{
+    return set<edge_w_tuple>();
 }
 
 int GraphUtils::locate_vertex(Graph* g, VertexType v)
