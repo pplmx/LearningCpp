@@ -34,6 +34,7 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
         v = get<1>(edge);
         u_idx = this->locate_vertex(this->graph, u);
         v_idx = this->locate_vertex(this->graph, v);
+
         edge_ptr->is_visited = false;
 
         edge_ptr->u_idx = u_idx;
