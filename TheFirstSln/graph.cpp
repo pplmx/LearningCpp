@@ -23,7 +23,7 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     size_t idx = 0;
     for (auto vertex : this->vertex_set) {
         this->graph->list[idx].data = vertex;
-        this->graph->list[idx].first_edge = NULL;
+        this->graph->list[idx].first_edge = nullptr;
         this->graph->list[idx].threshold = 0;
         idx++;
     }
@@ -76,19 +76,9 @@ set<int> GraphUtils::get_vertex_set()
     return this->vertex_set;
 }
 
-set<int> GraphUtils::get_vertex_set(VertexType data)
-{
-    return set<int>();
-}
-
 set<edge_tuple> GraphUtils::get_edge_set()
 {
     return this->edge_set;
-}
-
-set<edge_tuple> GraphUtils::get_edge_set(VertexType data)
-{
-    return set<edge_tuple>();
 }
 
 set<edge_w_tuple> GraphUtils::get_edge_w_set()
@@ -96,9 +86,40 @@ set<edge_w_tuple> GraphUtils::get_edge_w_set()
     return this->edge_w_set;
 }
 
-set<edge_w_tuple> GraphUtils::get_edge_w_set(VertexType data)
+set<int> GraphUtils::get_neighbor_node_set(VertexType data)
+{
+    int data_idx = this->locate_vertex(this->graph, data);
+    set<int> node_set;
+    Edge* edge = this->graph->list[data_idx].first_edge;
+    VertexType u, v;
+    while (edge != nullptr) {
+        u = this->graph->list[edge->u_idx].data;
+        v = this->graph->list[edge->v_idx].data;
+        if (u == data) {
+            node_set.insert(v);
+            edge = edge->u_next_edge;
+        }
+        if (v == data) {
+            node_set.insert(u);
+            edge = edge->v_next_edge;
+        }
+    }
+    return node_set;
+}
+
+set<edge_tuple> GraphUtils::get_neighbor_edge_set(VertexType data)
+{
+    return set<edge_tuple>();
+}
+
+set<edge_w_tuple> GraphUtils::get_neighbor_edge_w_set(VertexType data)
 {
     return set<edge_w_tuple>();
+}
+
+int GraphUtils::get_degree(VertexType data)
+{
+    return 0;
 }
 
 int GraphUtils::locate_vertex(Graph* g, VertexType v)

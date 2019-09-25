@@ -76,12 +76,22 @@ public:
     // except two nodes, contains the weight of edge
     GraphUtils(set<edge_w_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
+
+    // get all vertices
     set<int> get_vertex_set();
-    set<int> get_vertex_set(VertexType data);
+    // get all edges
     set<edge_tuple> get_edge_set();
-    set<edge_tuple> get_edge_set(VertexType data);
     set<edge_w_tuple> get_edge_w_set();
-    set<edge_w_tuple> get_edge_w_set(VertexType data);
+
+    // get the neighbor nodes of a node
+    set<int> get_neighbor_node_set(VertexType data);
+    // get the neighbor edges of a node
+    set<edge_tuple> get_neighbor_edge_set(VertexType data);
+    set<edge_w_tuple> get_neighbor_edge_w_set(VertexType data);
+
+    // get the degree of a node
+    int get_degree(VertexType data);
+
     ~GraphUtils();
 
 private:
