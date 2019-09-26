@@ -18,6 +18,8 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->graph = new Graph;
     this->graph->vertex_num = this->vertex_set.size();
     this->graph->edge_num = this->edge_set.size();
+    // TODO ?????
+    this->graph->list = new Vertex[this->graph->vertex_num];
 
     // init adjacency multi-list
     size_t idx = 0;
@@ -71,7 +73,7 @@ GraphUtils::GraphUtils(const GraphUtils& obj)
     *(this->graph) = *obj.graph;
 }
 
-set<int> GraphUtils::get_vertex_set()
+set<VertexType> GraphUtils::get_vertex_set()
 {
     return this->vertex_set;
 }
@@ -86,7 +88,7 @@ set<edge_w_tuple> GraphUtils::get_edge_w_set()
     return this->edge_w_set;
 }
 
-set<int> GraphUtils::get_neighbor_node_set(VertexType data)
+set<VertexType> GraphUtils::get_neighbor_node_set(VertexType data)
 {
     int data_idx = this->locate_vertex(this->graph, data);
     set<int> node_set;
@@ -120,6 +122,11 @@ set<edge_w_tuple> GraphUtils::get_neighbor_edge_w_set(VertexType data)
 int GraphUtils::get_degree(VertexType data)
 {
     return 0;
+}
+
+GraphUtils::~GraphUtils()
+{
+    delete graph;
 }
 
 int GraphUtils::locate_vertex(Graph* g, VertexType v)
@@ -166,16 +173,25 @@ int main()
 {
     // set<tuple<int, int>, decltype(&edge_compare)> edge_set(&edge_compare);
     // set<edge_tuple> edge_set;
-    set<edge_w_tuple> edge_set;
-    edge_set.insert(make_tuple(2, 3, 0.2));
+    set<edge_tuple> edge_set;
+    edge_set.insert(make_tuple(2, 3));
 
-    edge_set.insert(make_tuple(1, 2, 0.4));
+    edge_set.insert(make_tuple(1, 2));
 
-    edge_set.insert(make_tuple(2, 1, 0.9));
+    edge_set.insert(make_tuple(2, 1));
 
-    edge_set.insert(make_tuple(2, 3, 0.5));
+    edge_set.insert(make_tuple(2, 3));
     for_each(edge_set.begin(), edge_set.end(), [](const auto& edge) {
-        std::cout << ' ' << get<0>(edge) << ' ' << get<1>(edge) << ' ' << get<2>(edge) << std::endl;
+        std::cout << ' ' << get<0>(edge) << ' ' << get<1>(edge) << std::endl;
     });
+
+    GraphUtils graph(edge_set);
+    set<VertexType> vs = graph.get_vertex_set();
+    set<edge_tuple> es = graph.get_edge_set();
+    set<VertexType> nbr_node = graph.get_neighbor_node_set(2);
+    for_each(vs.begin(), vs.end(), [](const auto& vertex) {
+        std::cout << vertex << std::endl;
+    });
+
     return 0;
 }

@@ -78,13 +78,13 @@ public:
     GraphUtils(const GraphUtils& obj);
 
     // get all vertices
-    set<int> get_vertex_set();
+    set<VertexType> get_vertex_set();
     // get all edges
     set<edge_tuple> get_edge_set();
     set<edge_w_tuple> get_edge_w_set();
 
     // get the neighbor nodes of a node
-    set<int> get_neighbor_node_set(VertexType data);
+    set<VertexType> get_neighbor_node_set(VertexType data);
     // get the neighbor edges of a node
     set<edge_tuple> get_neighbor_edge_set(VertexType data);
     set<edge_w_tuple> get_neighbor_edge_w_set(VertexType data);
