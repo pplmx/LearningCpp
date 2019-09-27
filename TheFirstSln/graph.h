@@ -2,11 +2,13 @@
 #include <set>
 #include <tuple>
 
+typedef long VertexType;
+
 namespace std {
 // a edge without weight
-typedef tuple<int, int> edge_tuple;
+typedef tuple<VertexType, VertexType> edge_tuple;
 // a edge with weight
-typedef tuple<int, int, double> edge_w_tuple;
+typedef tuple<VertexType, VertexType, double> edge_w_tuple;
 bool operator<(const edge_tuple& t1, const edge_tuple& t2)
 {
     // remove the repeated
@@ -42,8 +44,6 @@ bool operator<(const edge_w_tuple& t1, const edge_w_tuple& t2)
 }
 }
 using namespace std;
-
-typedef int VertexType;
 
 struct Edge {
     // mark that whether an edge is visited
@@ -96,7 +96,7 @@ public:
 
 private:
     Graph* graph;
-    set<int> vertex_set;
+    set<VertexType> vertex_set;
     set<edge_tuple> edge_set;
     set<edge_w_tuple> edge_w_set;
 

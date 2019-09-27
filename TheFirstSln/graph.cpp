@@ -30,7 +30,8 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
         idx++;
     }
     // init all edges' struct in adj_multi_list
-    int u, v, u_idx, v_idx;
+    VertexType u, v;
+    int u_idx, v_idx;
     for (auto edge : this->edge_set) {
         Edge* edge_ptr = new Edge;
         u = get<0>(edge);
@@ -95,7 +96,7 @@ set<edge_w_tuple> GraphUtils::get_edge_w_set()
 set<VertexType> GraphUtils::get_neighbor_node_set(VertexType data)
 {
     int data_idx = this->locate_vertex(this->graph, data);
-    set<int> node_set;
+    set<VertexType> node_set;
     Edge* edge = this->graph->list[data_idx].first_edge;
     VertexType u, v;
     while (edge != nullptr) {
