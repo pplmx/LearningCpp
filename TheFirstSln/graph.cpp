@@ -18,10 +18,10 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->graph = new Graph;
     this->graph->vertex_num = this->vertex_set.size();
     this->graph->edge_num = this->edge_set.size();
-    // TODO ?????
     this->graph->list = new Vertex[this->graph->vertex_num];
 
-    // init adjacency multi-list
+    // ======init adjacency multi-list======
+    // init all vertices' struct in adj_multi_list
     size_t idx = 0;
     for (auto vertex : this->vertex_set) {
         this->graph->list[idx].data = vertex;
@@ -29,14 +29,18 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
         this->graph->list[idx].threshold = 0;
         idx++;
     }
+    // init all edges' struct in adj_multi_list
     int u, v, u_idx, v_idx;
     for (auto edge : this->edge_set) {
         Edge* edge_ptr = new Edge;
         u = get<0>(edge);
         v = get<1>(edge);
+
+        // find the index of a node in adj_multi_list
         u_idx = this->locate_vertex(this->graph, u);
         v_idx = this->locate_vertex(this->graph, v);
 
+        // init edge to be not visited
         edge_ptr->is_visited = false;
 
         edge_ptr->u_idx = u_idx;
@@ -175,23 +179,27 @@ int main()
     // set<edge_tuple> edge_set;
     set<edge_tuple> edge_set;
     edge_set.insert(make_tuple(2, 3));
-
     edge_set.insert(make_tuple(1, 2));
-
     edge_set.insert(make_tuple(2, 1));
-
     edge_set.insert(make_tuple(2, 3));
-    for_each(edge_set.begin(), edge_set.end(), [](const auto& edge) {
-        std::cout << ' ' << get<0>(edge) << ' ' << get<1>(edge) << std::endl;
-    });
+    edge_set.insert(make_tuple(3, 4));
+    edge_set.insert(make_tuple(4, 5));
+    edge_set.insert(make_tuple(2, 6));
 
     GraphUtils graph(edge_set);
     set<VertexType> vs = graph.get_vertex_set();
     set<edge_tuple> es = graph.get_edge_set();
     set<VertexType> nbr_node = graph.get_neighbor_node_set(2);
     for_each(vs.begin(), vs.end(), [](const auto& vertex) {
-        std::cout << vertex << std::endl;
+        std::cout << vertex << ", ";
     });
-
+    std::cout << std::endl;
+    for_each(es.begin(), es.end(), [](const auto& edge) {
+        std::cout << "(" << get<0>(edge) << ", " << get<1>(edge) << ")" << std::endl;
+    });
+    for_each(nbr_node.begin(), nbr_node.end(), [](const auto& vertex) {
+        std::cout << vertex << ", ";
+    });
+    std::cout << std::endl;
     return 0;
 }
