@@ -2,15 +2,15 @@
 #include "graph.h"
 #include <algorithm>
 #include <iostream>
+#include <time.h>
 #include <tuple>
 
 using namespace std;
+
 GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
     // init edge_set(to remove the repeated edge)
     this->set_edge_set(edge_set);
-    // init edge_w_set as empty set
-    this->edge_w_set = set<edge_w_tuple>();
 
     // init vertex_set
     this->set_vertex_set(this->edge_set);
@@ -19,59 +19,6 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->graph = new Graph;
     this->graph->vertex_num = this->vertex_set.size();
     this->graph->edge_num = this->edge_set.size();
-    this->graph->list = new Vertex[this->graph->vertex_num];
-
-    // ======init adjacency multi-list======
-    // init all vertices' struct in adj_multi_list
-    size_t idx = 0;
-    for (auto vertex : this->vertex_set) {
-        this->graph->list[idx].data = vertex;
-        this->graph->list[idx].first_edge = nullptr;
-        this->graph->list[idx].threshold = 0;
-        idx++;
-    }
-    // init all edges' struct in adj_multi_list
-    VertexType u, v;
-    int u_idx, v_idx;
-    for (auto edge : this->edge_set) {
-        Edge* edge_ptr = new Edge;
-        u = get<0>(edge);
-        v = get<1>(edge);
-
-        // find the index of a node in adj_multi_list
-        u_idx = this->locate_vertex(this->graph, u);
-        v_idx = this->locate_vertex(this->graph, v);
-
-        // init edge to be not visited and set the weight of a edge
-        edge_ptr->is_visited = false;
-        edge_ptr->weight = 0;
-
-        edge_ptr->u_idx = u_idx;
-        edge_ptr->u_next_edge = this->graph->list[u_idx].first_edge;
-        // point to this new edge on u
-        this->graph->list[u_idx].first_edge = edge_ptr;
-
-        edge_ptr->v_idx = v_idx;
-        edge_ptr->v_next_edge = this->graph->list[v_idx].first_edge;
-        // point to this new edge on v
-        this->graph->list[v_idx].first_edge = edge_ptr;
-    }
-}
-
-GraphUtils::GraphUtils(set<edge_w_tuple> edge_set)
-{
-    // init edge_w_set(to remove the repeated edge)
-    this->set_edge_set(edge_set);
-    // init edge_set as empty set
-    this->edge_set = set<edge_tuple>();
-
-    // init vertex_set
-    this->set_vertex_set(this->edge_w_set);
-
-    // init graph
-    this->graph = new Graph;
-    this->graph->vertex_num = this->vertex_set.size();
-    this->graph->edge_num = this->edge_w_set.size();
     this->graph->list = new Vertex[this->graph->vertex_num];
 
     // init adjacency multi-list
@@ -86,7 +33,7 @@ GraphUtils::GraphUtils(set<edge_w_tuple> edge_set)
     // init all edges' struct in adj_multi_list
     VertexType u, v;
     int u_idx, v_idx;
-    for (auto edge : this->edge_w_set) {
+    for (auto edge : this->edge_set) {
         Edge* edge_ptr = new Edge;
         u = get<0>(edge);
         v = get<1>(edge);
@@ -129,11 +76,6 @@ set<edge_tuple> GraphUtils::get_edge_set()
     return this->edge_set;
 }
 
-set<edge_w_tuple> GraphUtils::get_edge_w_set()
-{
-    return this->edge_w_set;
-}
-
 set<VertexType> GraphUtils::get_neighbor_node_set(VertexType data)
 {
     int data_idx = this->locate_vertex(this->graph, data);
@@ -160,11 +102,6 @@ set<edge_tuple> GraphUtils::get_neighbor_edge_set(VertexType data)
     return set<edge_tuple>();
 }
 
-set<edge_w_tuple> GraphUtils::get_neighbor_edge_w_set(VertexType data)
-{
-    return set<edge_w_tuple>();
-}
-
 int GraphUtils::get_degree(VertexType data)
 {
     return 0;
@@ -187,14 +124,6 @@ int GraphUtils::locate_vertex(Graph* g, VertexType v)
 
 void GraphUtils::set_vertex_set(set<edge_tuple> edge_set)
 {
-    for (auto edge : edge_set) {
-        this->vertex_set.insert(get<0>(edge));
-        this->vertex_set.insert(get<1>(edge));
-    }
-}
-
-void GraphUtils::set_vertex_set(set<edge_w_tuple> edge_set)
-{
     for_each(edge_set.begin(), edge_set.end(), [this](const auto& edge) {
         this->vertex_set.insert(get<0>(edge));
         this->vertex_set.insert(get<1>(edge));
@@ -208,10 +137,29 @@ void GraphUtils::set_edge_set(set<edge_tuple> edge_set)
     }
 }
 
-void GraphUtils::set_edge_set(set<edge_w_tuple> edge_set)
+void guess_num()
 {
-    for (auto edge : edge_set) {
-        this->edge_w_set.insert(edge);
+    int upper, floor, random, guess = -1;
+    cout << "Please set the floor limit and upper limit(sperated by space): " << endl;
+    cin >> floor >> upper;
+    srand((unsigned int)time(NULL));
+    // generate a number in [floor, upper]
+    random = rand() % (upper - floor + 1) + floor;
+    for (size_t i = 0; i < 10; i++) {
+        cout << "Please guess the number: " << endl;
+        cin >> guess;
+        if (guess < random) {
+            cout << "Small" << endl;
+        } else if (guess > random) {
+            cout << "Large" << endl;
+        } else {
+            break;
+        }
+    }
+    if (guess == random) {
+        cout << "WIN" << endl;
+    } else {
+        cout << "LOSE" << endl;
     }
 }
 
@@ -219,7 +167,7 @@ int main()
 {
     // use the compare funtion of set
     // set<tuple<int, int>, decltype(&edge_compare)> edge_set(&edge_compare);
-    /*set<edge_tuple> edge_set;
+    /*set<tuple<VertexType, VertexType>> edge_set;
     edge_set.insert(make_tuple(2, 3));
     edge_set.insert(make_tuple(1, 2));
     edge_set.insert(make_tuple(2, 1));
@@ -228,7 +176,7 @@ int main()
     edge_set.insert(make_tuple(4, 5));
     edge_set.insert(make_tuple(2, 6));*/
 
-    set<edge_w_tuple> edge_set;
+    set<edge_tuple> edge_set;
     edge_set.insert(make_tuple(2, 3, 0.2));
     edge_set.insert(make_tuple(1, 2, 0.4));
     edge_set.insert(make_tuple(2, 1, 0.1));
@@ -240,7 +188,7 @@ int main()
     GraphUtils graph(edge_set);
     set<VertexType> vs = graph.get_vertex_set();
     // set<edge_tuple> es = graph.get_edge_set();
-    set<edge_w_tuple> es = graph.get_edge_w_set();
+    set<edge_tuple> es = graph.get_edge_set();
     set<VertexType> nbr_node = graph.get_neighbor_node_set(2);
     for_each(vs.begin(), vs.end(), [](const auto& vertex) {
         std::cout << vertex << ", ";
@@ -254,6 +202,8 @@ int main()
         std::cout << vertex << ", ";
     });
     std::cout << std::endl;
+
+    guess_num();
 
     return 0;
 }

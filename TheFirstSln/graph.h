@@ -5,28 +5,10 @@
 typedef int VertexType;
 
 namespace std {
-// a edge without weight
-typedef tuple<VertexType, VertexType> edge_tuple;
 // a edge with weight
-typedef tuple<VertexType, VertexType, double> edge_w_tuple;
+typedef tuple<VertexType, VertexType, double> edge_tuple;
+
 bool operator<(const edge_tuple& t1, const edge_tuple& t2)
-{
-    // remove the repeated
-    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
-        // (1, 2) == (2, 1)
-        return false;
-    }
-
-    // sort by ascend
-    if (get<0>(t1) == get<0>(t2)) {
-        // (1, 1), (1, 2), (1, 3)
-        return get<1>(t1) < get<1>(t2);
-    }
-    // (1, 2), (3, 2), (5, 9)
-    return get<0>(t1) < get<0>(t2);
-}
-
-bool operator<(const edge_w_tuple& t1, const edge_w_tuple& t2)
 {
     // remove the repeated
     if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
@@ -54,6 +36,7 @@ struct Edge {
     double weight;
 };
 
+// due to byte aligned, the size of this struct is 16bytes on 32, and 24bytes on 64
 typedef struct Vertex {
     VertexType data;
     Edge* first_edge;
@@ -71,23 +54,19 @@ struct Graph {
 
 class GraphUtils {
 public:
-    // only contains the two nodes of edge
+    GraphUtils(set<tuple<VertexType, VertexType>> edge_set);
     GraphUtils(set<edge_tuple> edge_set);
-    // except two nodes, contains the weight of edge
-    GraphUtils(set<edge_w_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
 
     // get all vertices
     set<VertexType> get_vertex_set();
     // get all edges
     set<edge_tuple> get_edge_set();
-    set<edge_w_tuple> get_edge_w_set();
 
     // get the neighbor nodes of a node
     set<VertexType> get_neighbor_node_set(VertexType data);
     // get the neighbor edges of a node
     set<edge_tuple> get_neighbor_edge_set(VertexType data);
-    set<edge_w_tuple> get_neighbor_edge_w_set(VertexType data);
 
     // get the degree of a node
     int get_degree(VertexType data);
@@ -98,35 +77,13 @@ private:
     Graph* graph;
     set<VertexType> vertex_set;
     set<edge_tuple> edge_set;
-    set<edge_w_tuple> edge_w_set;
 
     void set_vertex_set(set<edge_tuple> edge_set);
-    void set_vertex_set(set<edge_w_tuple> edge_set);
-
     void set_edge_set(set<edge_tuple> edge_set);
-    void set_edge_set(set<edge_w_tuple> edge_set);
     int locate_vertex(Graph* g, VertexType v);
 };
 
-bool edge_compare(const tuple<int, int>& t1, const tuple<int, int>& t2)
-{
-
-    // remove the repeated
-    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
-        // (1, 2) == (2, 1)
-        return false;
-    }
-
-    // sort by ascend
-    if (get<0>(t1) == get<0>(t2)) {
-        // (1, 1), (1, 2), (1, 3)
-        return get<1>(t1) < get<1>(t2);
-    }
-    // (1, 2), (3, 2), (5, 9)
-    return get<0>(t1) < get<0>(t2);
-}
-
-bool edge_w_compare(const tuple<int, int, double>& t1, const tuple<int, int, double>& t2)
+bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2)
 {
 
     // remove the repeated
