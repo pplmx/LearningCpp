@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <tuple>
+
 using namespace std;
 GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
@@ -202,5 +203,6 @@ int main()
         std::cout << vertex << ", ";
     });
     std::cout << std::endl;
+
     return 0;
 }

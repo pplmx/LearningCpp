@@ -2,7 +2,7 @@
 #include <set>
 #include <tuple>
 
-typedef long VertexType;
+typedef int VertexType;
 
 namespace std {
 // a edge without weight
