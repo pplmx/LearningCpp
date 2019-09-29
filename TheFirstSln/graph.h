@@ -85,7 +85,6 @@ private:
 
 bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2)
 {
-
     // remove the repeated
     if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
         // (1, 2) == (2, 1)

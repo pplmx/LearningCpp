@@ -38,4 +38,3 @@ LTModel::~LTModel()
     cout << "LTModel is being deleted now." << endl;
     delete seeds;
 }
-

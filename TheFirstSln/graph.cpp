@@ -167,7 +167,7 @@ void guess_num()
 
 int main()
 {
-    // use the compare funtion of set
+    // use the compare function of set
     // set<tuple<int, int>, decltype(&edge_compare)> edge_set(&edge_compare);
     /*set<tuple<VertexType, VertexType>> edge_set;
     edge_set.insert(make_tuple(2, 3));
