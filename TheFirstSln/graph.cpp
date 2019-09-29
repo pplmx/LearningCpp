@@ -4,6 +4,7 @@
 #include <iostream>
 #include <time.h>
 #include <tuple>
+#include <vector>
 
 using namespace std;
 
@@ -22,9 +23,10 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     this->graph->list = new Vertex[this->graph->vertex_num];
 
     // init adjacency multi-list
-    // init all vertices' struct in adj_multi_list
+    // init all vertices's struct in adj_multi_list
     size_t idx = 0;
     for (auto vertex : this->vertex_set) {
+        // C6386 warning, how to fix it?
         this->graph->list[idx].data = vertex;
         this->graph->list[idx].first_edge = nullptr;
         this->graph->list[idx].threshold = 0;
