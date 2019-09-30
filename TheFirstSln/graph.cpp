@@ -2,9 +2,7 @@
 #include "graph.h"
 #include <algorithm>
 #include <iostream>
-#include <time.h>
 #include <tuple>
-#include <vector>
 
 using namespace std;
 
@@ -106,7 +104,7 @@ set<edge_tuple> GraphUtils::get_neighbor_edge_set(VertexType data)
 
 int GraphUtils::get_degree(VertexType data)
 {
-    return 0;
+    return this->get_neighbor_node_set(data).size();
 }
 
 GraphUtils::~GraphUtils()
@@ -136,32 +134,6 @@ void GraphUtils::set_edge_set(set<edge_tuple> edge_set)
 {
     for (auto edge : edge_set) {
         this->edge_set.insert(edge);
-    }
-}
-
-void guess_num()
-{
-    int upper, floor, random, guess = -1;
-    cout << "Please set the floor limit and upper limit(sperated by space): " << endl;
-    cin >> floor >> upper;
-    srand((unsigned int)time(NULL));
-    // generate a number in [floor, upper]
-    random = rand() % (upper - floor + 1) + floor;
-    for (size_t i = 0; i < 10; i++) {
-        cout << "Please guess the number: " << endl;
-        cin >> guess;
-        if (guess < random) {
-            cout << "Small" << endl;
-        } else if (guess > random) {
-            cout << "Large" << endl;
-        } else {
-            break;
-        }
-    }
-    if (guess == random) {
-        cout << "WIN" << endl;
-    } else {
-        cout << "LOSE" << endl;
     }
 }
 
@@ -204,8 +176,6 @@ int main()
         std::cout << vertex << ", ";
     });
     std::cout << std::endl;
-
-    guess_num();
 
     return 0;
 }
