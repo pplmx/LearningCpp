@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "graph.h"
 using namespace std;
 
 class LTModel {
@@ -13,11 +14,13 @@ public:
 private:
     int steps = 0;
     int* seeds;
+    Graph* graph;
 };
 
 LTModel::LTModel()
 {
     seeds = new int;
+    graph = new Graph;
 }
 
 LTModel::LTModel(int num)
