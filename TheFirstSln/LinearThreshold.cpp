@@ -6,38 +6,32 @@ using namespace std;
 
 class LTModel {
 public:
-    LTModel();
-    LTModel(int num);
+    LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps=0);
     LTModel(const LTModel& obj);
     ~LTModel();
 
 private:
+    GraphUtils* graph;
+    set<VertexType> seeds;
+    set<VertexType> burning_seq;
     int steps = 0;
-    int* seeds;
-    Graph* graph;
+
+    void init_model();
 };
 
-LTModel::LTModel()
+LTModel::LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps)
 {
-    seeds = new int;
-    graph = new Graph;
-}
-
-LTModel::LTModel(int num)
-    : steps(num)
-{
-    cout << "LTModel is being created now." << endl;
-    seeds = new int;
+    this->graph = graph;
 }
 
 LTModel::LTModel(const LTModel& obj)
 {
-    seeds = new int;
-    *seeds = *obj.seeds;
 }
 
 LTModel::~LTModel()
 {
-    cout << "LTModel is being deleted now." << endl;
-    delete seeds;
+}
+
+void LTModel::init_model()
+{
 }
