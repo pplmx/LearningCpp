@@ -4,6 +4,8 @@
 #include "graph.h"
 using namespace std;
 
+set<VertexType> seeds_default;
+
 class LTModel {
 public:
     LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps=0);
