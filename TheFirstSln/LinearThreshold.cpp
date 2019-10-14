@@ -26,6 +26,8 @@ LTModel::LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burni
 
 LTModel::LTModel(const LTModel& obj)
 {
+    this->graph = new GraphUtils;
+    *(this->graph) = *obj.graph
 }
 
 LTModel::~LTModel()
