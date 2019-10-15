@@ -1,14 +1,9 @@
 #pragma once
-
-#include <iostream>
 #include "graph.h"
-using namespace std;
-
-set<VertexType> seeds_default;
 
 class LTModel {
 public:
-    LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps=0);
+    LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps = 0);
     LTModel(const LTModel& obj);
     ~LTModel();
 
@@ -28,8 +23,6 @@ LTModel::LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burni
 
 LTModel::LTModel(const LTModel& obj)
 {
-    this->graph = new GraphUtils;
-    *(this->graph) = *obj.graph;
 }
 
 LTModel::~LTModel()

@@ -125,7 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="graph.cpp" />
-    <ClCompile Include="LinearThreshold.cpp" />
+    <ClCompile Include="LinearThresholdModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digraph.h" />

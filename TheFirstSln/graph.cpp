@@ -6,10 +6,6 @@
 
 using namespace std;
 
-GraphUtils::GraphUtils()
-{
-}
-
 GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
     // init edge_set(to remove the repeated edge)

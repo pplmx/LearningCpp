@@ -54,7 +54,6 @@ struct Graph {
 
 class GraphUtils {
 public:
-    GraphUtils();
     GraphUtils(set<tuple<VertexType, VertexType>> edge_set);
     GraphUtils(set<edge_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
