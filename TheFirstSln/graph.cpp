@@ -2,9 +2,6 @@
 #include "graph.h"
 #include <algorithm>
 #include <iostream>
-#include <tuple>
-
-using namespace std;
 
 GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
@@ -178,4 +175,38 @@ int main()
     std::cout << std::endl;
 
     return 0;
+}
+
+bool std::operator<(const edge_tuple& t1, const edge_tuple& t2)
+{
+    // remove the repeated
+    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
+        // (1, 2) == (2, 1)
+        return false;
+    }
+
+    // sort by ascend
+    if (get<0>(t1) == get<0>(t2)) {
+        // (1, 1), (1, 2), (1, 3)
+        return get<1>(t1) < get<1>(t2);
+    }
+    // (1, 2), (3, 2), (5, 9)
+    return get<0>(t1) < get<0>(t2);
+}
+
+bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2)
+{
+    // remove the repeated
+    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
+        // (1, 2) == (2, 1)
+        return false;
+    }
+
+    // sort by ascend
+    if (get<0>(t1) == get<0>(t2)) {
+        // (1, 1), (1, 2), (1, 3)
+        return get<1>(t1) < get<1>(t2);
+    }
+    // (1, 2), (3, 2), (5, 9)
+    return get<0>(t1) < get<0>(t2);
 }

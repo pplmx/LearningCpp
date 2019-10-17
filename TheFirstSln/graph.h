@@ -2,28 +2,12 @@
 #include <set>
 #include <tuple>
 
-typedef int VertexType;
-
 namespace std {
+typedef int VertexType;
 // a edge with weight
 typedef tuple<VertexType, VertexType, double> edge_tuple;
-
-bool operator<(const edge_tuple& t1, const edge_tuple& t2)
-{
-    // remove the repeated
-    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
-        // (1, 2) == (2, 1)
-        return false;
-    }
-
-    // sort by ascend
-    if (get<0>(t1) == get<0>(t2)) {
-        // (1, 1), (1, 2), (1, 3)
-        return get<1>(t1) < get<1>(t2);
-    }
-    // (1, 2), (3, 2), (5, 9)
-    return get<0>(t1) < get<0>(t2);
-}
+// ensure a edge in edge_set is unique in undirected graph
+bool operator<(const edge_tuple& t1, const edge_tuple& t2);
 }
 using namespace std;
 
@@ -83,22 +67,7 @@ private:
     int locate_vertex(Graph* g, VertexType v);
 };
 
-bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2)
-{
-    // remove the repeated
-    if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
-        // (1, 2) == (2, 1)
-        return false;
-    }
-
-    // sort by ascend
-    if (get<0>(t1) == get<0>(t2)) {
-        // (1, 1), (1, 2), (1, 3)
-        return get<1>(t1) < get<1>(t2);
-    }
-    // (1, 2), (3, 2), (5, 9)
-    return get<0>(t1) < get<0>(t2);
-}
+bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2);
 
 // get the length of array
 template <typename T>
