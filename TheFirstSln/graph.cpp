@@ -3,6 +3,11 @@
 #include <algorithm>
 #include <iostream>
 
+GraphUtils::GraphUtils()
+{
+    this->graph = new Graph;
+}
+
 GraphUtils::GraphUtils(set<edge_tuple> edge_set)
 {
     // init edge_set(to remove the repeated edge)

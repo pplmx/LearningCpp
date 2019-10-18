@@ -38,9 +38,11 @@ struct Graph {
 
 class GraphUtils {
 public:
+    GraphUtils();
     GraphUtils(set<tuple<VertexType, VertexType>> edge_set);
     GraphUtils(set<edge_tuple> edge_set);
     GraphUtils(const GraphUtils& obj);
+    ~GraphUtils();
 
     // get all vertices
     set<VertexType> get_vertex_set();
@@ -55,7 +57,6 @@ public:
     // get the degree of a node
     int get_degree(VertexType data);
 
-    ~GraphUtils();
 
 private:
     Graph* graph;
