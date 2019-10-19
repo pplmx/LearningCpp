@@ -32,5 +32,8 @@
     <ClInclude Include="digraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LinearThresholdModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

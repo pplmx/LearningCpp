@@ -1,20 +1,5 @@
 #pragma once
-#include "graph.h"
-
-class LTModel {
-public:
-    LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps = 0);
-    LTModel(const LTModel& obj);
-    ~LTModel();
-
-private:
-    GraphUtils* graph;
-    set<VertexType> seeds;
-    set<VertexType> burning_seq;
-    int steps = 0;
-
-    void init_model();
-};
+#include "LinearThresholdModel.h"
 
 LTModel::LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps)
 {
@@ -25,13 +10,13 @@ LTModel::LTModel(const LTModel& obj)
 {
     this->graph = new GraphUtils;
     *(this->graph) = *obj.graph;
-
 }
 
 LTModel::~LTModel()
 {
 }
 
-void LTModel::init_model()
+set<VertexType> LTModel::find_minimal_dominating_set()
 {
+    return set<VertexType>();
 }

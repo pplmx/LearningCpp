@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="digraph.h" />
     <ClInclude Include="graph.h" />
+    <ClInclude Include="LinearThresholdModel.h" />
     <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

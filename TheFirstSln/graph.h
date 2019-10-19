@@ -57,7 +57,6 @@ public:
     // get the degree of a node
     int get_degree(VertexType data);
 
-
 private:
     Graph* graph;
     set<VertexType> vertex_set;
