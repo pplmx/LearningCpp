@@ -1,14 +1,14 @@
 #pragma once
 #include "LinearThresholdModel.h"
 
-LTModel::LTModel(GraphUtils* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps)
+LTModel::LTModel(UndirectedGraph* graph, set<VertexType> seeds, set<VertexType> burning_seq, int steps)
 {
     this->graph = graph;
 }
 
 LTModel::LTModel(const LTModel& obj)
 {
-    this->graph = new GraphUtils;
+    this->graph = new UndirectedGraph;
     *(this->graph) = *obj.graph;
 }
 

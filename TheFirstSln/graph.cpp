@@ -3,12 +3,12 @@
 #include <algorithm>
 #include <iostream>
 
-GraphUtils::GraphUtils()
+UndirectedGraph::UndirectedGraph()
 {
     this->graph = new Graph;
 }
 
-GraphUtils::GraphUtils(set<edge_tuple> edge_set)
+UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set)
 {
     // init edge_set(to remove the repeated edge)
     this->set_edge_set(edge_set);
@@ -60,7 +60,7 @@ GraphUtils::GraphUtils(set<edge_tuple> edge_set)
     }
 }
 
-GraphUtils::GraphUtils(const GraphUtils& obj)
+UndirectedGraph::UndirectedGraph(const UndirectedGraph& obj)
 {
     // allocate the memory
     this->graph = new Graph;
@@ -68,17 +68,17 @@ GraphUtils::GraphUtils(const GraphUtils& obj)
     *(this->graph) = *obj.graph;
 }
 
-set<VertexType> GraphUtils::get_vertex_set()
+set<VertexType> UndirectedGraph::get_vertex_set()
 {
     return this->vertex_set;
 }
 
-set<edge_tuple> GraphUtils::get_edge_set()
+set<edge_tuple> UndirectedGraph::get_edge_set()
 {
     return this->edge_set;
 }
 
-set<VertexType> GraphUtils::get_neighbor_node_set(VertexType data)
+set<VertexType> UndirectedGraph::get_neighbor_node_set(VertexType data)
 {
     int data_idx = this->locate_vertex(this->graph, data);
     set<VertexType> node_set;
@@ -99,22 +99,22 @@ set<VertexType> GraphUtils::get_neighbor_node_set(VertexType data)
     return node_set;
 }
 
-set<edge_tuple> GraphUtils::get_neighbor_edge_set(VertexType data)
+set<edge_tuple> UndirectedGraph::get_neighbor_edge_set(VertexType data)
 {
     return set<edge_tuple>();
 }
 
-int GraphUtils::get_degree(VertexType data)
+int UndirectedGraph::get_degree(VertexType data)
 {
     return this->get_neighbor_node_set(data).size();
 }
 
-GraphUtils::~GraphUtils()
+UndirectedGraph::~UndirectedGraph()
 {
     delete graph;
 }
 
-int GraphUtils::locate_vertex(Graph* g, VertexType v)
+int UndirectedGraph::locate_vertex(Graph* g, VertexType v)
 {
     for (int i = 0; i < g->vertex_num; i++) {
         if (g->list[i].data == v) {
@@ -124,7 +124,7 @@ int GraphUtils::locate_vertex(Graph* g, VertexType v)
     return -1;
 }
 
-void GraphUtils::set_vertex_set(set<edge_tuple> edge_set)
+void UndirectedGraph::set_vertex_set(set<edge_tuple> edge_set)
 {
     for_each(edge_set.begin(), edge_set.end(), [this](const auto& edge) {
         this->vertex_set.insert(get<0>(edge));
@@ -132,7 +132,7 @@ void GraphUtils::set_vertex_set(set<edge_tuple> edge_set)
     });
 }
 
-void GraphUtils::set_edge_set(set<edge_tuple> edge_set)
+void UndirectedGraph::set_edge_set(set<edge_tuple> edge_set)
 {
     for (auto edge : edge_set) {
         this->edge_set.insert(edge);
@@ -161,7 +161,7 @@ int main()
     edge_set.insert(make_tuple(4, 5, 0.1));
     edge_set.insert(make_tuple(2, 6, 0.5));
 
-    GraphUtils graph(edge_set);
+    UndirectedGraph graph(edge_set);
     set<VertexType> vs = graph.get_vertex_set();
     // set<edge_tuple> es = graph.get_edge_set();
     set<edge_tuple> es = graph.get_edge_set();

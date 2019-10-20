@@ -36,13 +36,13 @@ struct Graph {
     Adj_multi_list list;
 };
 
-class GraphUtils {
+class UndirectedGraph {
 public:
-    GraphUtils();
-    GraphUtils(set<tuple<VertexType, VertexType>> edge_set);
-    GraphUtils(set<edge_tuple> edge_set);
-    GraphUtils(const GraphUtils& obj);
-    ~GraphUtils();
+    UndirectedGraph();
+    UndirectedGraph(set<tuple<VertexType, VertexType>> edge_set);
+    UndirectedGraph(set<edge_tuple> edge_set);
+    UndirectedGraph(const UndirectedGraph& obj);
+    ~UndirectedGraph();
 
     // get all vertices
     set<VertexType> get_vertex_set();
