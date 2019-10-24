@@ -18,5 +18,7 @@ LTModel::~LTModel()
 
 set<VertexType> LTModel::find_minimal_dominating_set()
 {
-    return set<VertexType>();
+    set<VertexType> minimal_dominating_set;
+    set<VertexType> dominated_set;
+    return minimal_dominating_set;
 }
