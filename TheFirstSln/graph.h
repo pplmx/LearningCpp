@@ -3,29 +3,31 @@
 #include <tuple>
 
 namespace std {
-typedef int VertexType;
-// a edge with weight
-typedef tuple<VertexType, VertexType, double> edge_tuple;
-// ensure a edge in edge_set is unique in undirected graph
-bool operator<(const edge_tuple& t1, const edge_tuple& t2);
+    typedef int VertexType;
+    // a edge with weight
+    typedef tuple<VertexType, VertexType, double> edge_tuple;
+    // ensure a edge in edge_set is unique in undirected graph
+    bool operator<(const edge_tuple& t1, const edge_tuple& t2);
 }
 using namespace std;
 
-struct Edge {
-    // mark that whether an edge is visited
-    bool is_visited;
-    // the index of two node of an edge in adj_multi_list
-    int u_idx, v_idx;
-    Edge *u_next_edge, *v_next_edge;
-    double weight;
-};
-
 // due to byte aligned, the size of this struct is 16bytes on 32, and 24bytes on 64
-typedef struct Vertex {
+typedef struct Vertex
+{
+    struct Edge
+    {
+        // mark that whether an edge is visited
+        bool is_visited;
+        // the index of two node of an edge in adj_multi_list
+        int u_idx, v_idx;
+        Edge* u_next_edge, * v_next_edge;
+        double weight;
+    };
+
     VertexType data;
     Edge* first_edge;
     double threshold;
-} * Adj_multi_list;
+}*Adj_multi_list;
 
 /*
 undirected graph

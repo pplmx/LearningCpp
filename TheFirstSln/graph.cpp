@@ -129,7 +129,7 @@ void UndirectedGraph::set_vertex_set(set<edge_tuple> edge_set)
     for_each(edge_set.begin(), edge_set.end(), [this](const auto& edge) {
         this->vertex_set.insert(get<0>(edge));
         this->vertex_set.insert(get<1>(edge));
-    });
+        });
 }
 
 void UndirectedGraph::set_edge_set(set<edge_tuple> edge_set)
@@ -168,15 +168,15 @@ int main()
     set<VertexType> nbr_node = graph.get_neighbor_node_set(2);
     for_each(vs.begin(), vs.end(), [](const auto& vertex) {
         std::cout << vertex << ", ";
-    });
+        });
     std::cout << std::endl;
     for_each(es.begin(), es.end(), [](const auto& edge) {
         // std::cout << "(" << get<0>(edge) << ", " << get<1>(edge) << ")" << std::endl;
         std::cout << "(" << get<0>(edge) << ", " << get<1>(edge) << ", " << get<2>(edge) << ")" << std::endl;
-    });
+        });
     for_each(nbr_node.begin(), nbr_node.end(), [](const auto& vertex) {
         std::cout << vertex << ", ";
-    });
+        });
     std::cout << std::endl;
 
     return 0;
