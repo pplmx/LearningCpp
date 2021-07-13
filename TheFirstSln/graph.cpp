@@ -1,15 +1,14 @@
 #pragma once
+
 #include "graph.h"
 #include <algorithm>
 #include <iostream>
 
-UndirectedGraph::UndirectedGraph()
-{
+UndirectedGraph::UndirectedGraph() {
     this->graph = new Graph;
 }
 
-UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set)
-{
+UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set) {
     // init edge_set(to remove the repeated edge)
     this->set_edge_set(edge_set);
 
@@ -36,7 +35,7 @@ UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set)
     VertexType u, v;
     int u_idx, v_idx;
     for (auto edge : this->edge_set) {
-        Edge* edge_ptr = new Edge;
+        Edge *edge_ptr = new Edge;
         u = get<0>(edge);
         v = get<1>(edge);
 
@@ -60,29 +59,25 @@ UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set)
     }
 }
 
-UndirectedGraph::UndirectedGraph(const UndirectedGraph& obj)
-{
+UndirectedGraph::UndirectedGraph(const UndirectedGraph &obj) {
     // allocate the memory
     this->graph = new Graph;
     // copy the value
     *(this->graph) = *obj.graph;
 }
 
-set<VertexType> UndirectedGraph::get_vertex_set()
-{
+set<VertexType> UndirectedGraph::get_vertex_set() {
     return this->vertex_set;
 }
 
-set<edge_tuple> UndirectedGraph::get_edge_set()
-{
+set<edge_tuple> UndirectedGraph::get_edge_set() {
     return this->edge_set;
 }
 
-set<VertexType> UndirectedGraph::get_neighbor_node_set(VertexType data)
-{
+set<VertexType> UndirectedGraph::get_neighbor_node_set(VertexType data) {
     int data_idx = this->locate_vertex(this->graph, data);
     set<VertexType> node_set;
-    Edge* edge = this->graph->list[data_idx].first_edge;
+    Edge *edge = this->graph->list[data_idx].first_edge;
     VertexType u, v;
     while (edge != nullptr) {
         u = this->graph->list[edge->u_idx].data;
@@ -99,23 +94,19 @@ set<VertexType> UndirectedGraph::get_neighbor_node_set(VertexType data)
     return node_set;
 }
 
-set<edge_tuple> UndirectedGraph::get_neighbor_edge_set(VertexType data)
-{
+set<edge_tuple> UndirectedGraph::get_neighbor_edge_set(VertexType data) {
     return set<edge_tuple>();
 }
 
-int UndirectedGraph::get_degree(VertexType data)
-{
+int UndirectedGraph::get_degree(VertexType data) {
     return this->get_neighbor_node_set(data).size();
 }
 
-UndirectedGraph::~UndirectedGraph()
-{
+UndirectedGraph::~UndirectedGraph() {
     delete graph;
 }
 
-int UndirectedGraph::locate_vertex(Graph* g, VertexType v)
-{
+int UndirectedGraph::locate_vertex(Graph *g, VertexType v) {
     for (int i = 0; i < g->vertex_num; i++) {
         if (g->list[i].data == v) {
             return i;
@@ -124,23 +115,20 @@ int UndirectedGraph::locate_vertex(Graph* g, VertexType v)
     return -1;
 }
 
-void UndirectedGraph::set_vertex_set(set<edge_tuple> edge_set)
-{
-    for_each(edge_set.begin(), edge_set.end(), [this](const auto& edge) {
+void UndirectedGraph::set_vertex_set(set<edge_tuple> edge_set) {
+    for_each(edge_set.begin(), edge_set.end(), [this](const auto &edge) {
         this->vertex_set.insert(get<0>(edge));
         this->vertex_set.insert(get<1>(edge));
-        });
+    });
 }
 
-void UndirectedGraph::set_edge_set(set<edge_tuple> edge_set)
-{
+void UndirectedGraph::set_edge_set(set<edge_tuple> edge_set) {
     for (auto edge : edge_set) {
         this->edge_set.insert(edge);
     }
 }
 
-int main()
-{
+int main() {
     // use the compare function of set
     // set<tuple<int, int>, decltype(&edge_compare)> edge_set(&edge_compare);
     /*set<tuple<VertexType, VertexType>> edge_set;
@@ -166,24 +154,23 @@ int main()
     // set<edge_tuple> es = graph.get_edge_set();
     set<edge_tuple> es = graph.get_edge_set();
     set<VertexType> nbr_node = graph.get_neighbor_node_set(2);
-    for_each(vs.begin(), vs.end(), [](const auto& vertex) {
+    for_each(vs.begin(), vs.end(), [](const auto &vertex) {
         std::cout << vertex << ", ";
-        });
+    });
     std::cout << std::endl;
-    for_each(es.begin(), es.end(), [](const auto& edge) {
+    for_each(es.begin(), es.end(), [](const auto &edge) {
         // std::cout << "(" << get<0>(edge) << ", " << get<1>(edge) << ")" << std::endl;
         std::cout << "(" << get<0>(edge) << ", " << get<1>(edge) << ", " << get<2>(edge) << ")" << std::endl;
-        });
-    for_each(nbr_node.begin(), nbr_node.end(), [](const auto& vertex) {
+    });
+    for_each(nbr_node.begin(), nbr_node.end(), [](const auto &vertex) {
         std::cout << vertex << ", ";
-        });
+    });
     std::cout << std::endl;
 
     return 0;
 }
 
-bool std::operator<(const edge_tuple& t1, const edge_tuple& t2)
-{
+bool std::operator<(const edge_tuple &t1, const edge_tuple &t2) {
     // remove the repeated
     if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
         // (1, 2) == (2, 1)
@@ -199,8 +186,7 @@ bool std::operator<(const edge_tuple& t1, const edge_tuple& t2)
     return get<0>(t1) < get<0>(t2);
 }
 
-bool edge_compare(const tuple<VertexType, VertexType, double>& t1, const tuple<VertexType, VertexType, double>& t2)
-{
+bool edge_compare(const tuple<VertexType, VertexType, double> &t1, const tuple<VertexType, VertexType, double> &t2) {
     // remove the repeated
     if (get<0>(t1) == get<1>(t2) && get<1>(t1) == get<0>(t2)) {
         // (1, 2) == (2, 1)
