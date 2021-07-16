@@ -75,7 +75,7 @@ set<edge_tuple> UndirectedGraph::get_edge_set() {
 }
 
 set<VertexType> UndirectedGraph::get_neighbor_node_set(VertexType data) {
-    int data_idx = this->locate_vertex(this->graph, data);
+    int data_idx = UndirectedGraph::locate_vertex(this->graph, data);
     set<VertexType> node_set;
     Edge *edge = this->graph->list[data_idx].first_edge;
     VertexType u, v;
@@ -115,15 +115,15 @@ int UndirectedGraph::locate_vertex(Graph *g, VertexType v) {
     return -1;
 }
 
-void UndirectedGraph::set_vertex_set(set<edge_tuple> edge_set) {
-    for_each(edge_set.begin(), edge_set.end(), [this](const auto &edge) {
+void UndirectedGraph::set_vertex_set(set<edge_tuple> edges) {
+    for_each(edges.begin(), edges.end(), [this](const auto &edge) {
         this->vertex_set.insert(get<0>(edge));
         this->vertex_set.insert(get<1>(edge));
     });
 }
 
-void UndirectedGraph::set_edge_set(set<edge_tuple> edge_set) {
-    for (auto edge : edge_set) {
+void UndirectedGraph::set_edge_set(set<edge_tuple> edges) {
+    for (const auto& edge : edges) {
         this->edge_set.insert(edge);
     }
 }

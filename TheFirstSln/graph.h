@@ -70,17 +70,17 @@ private:
     set<VertexType> vertex_set;
     set<edge_tuple> edge_set;
 
-    void set_vertex_set(set<edge_tuple> edge_set);
+    void set_vertex_set(set<edge_tuple> edges);
 
-    void set_edge_set(set<edge_tuple> edge_set);
+    void set_edge_set(set<edge_tuple> edges);
 
-    int locate_vertex(Graph *g, VertexType v);
+    static int locate_vertex(Graph *g, VertexType v);
 };
 
 bool edge_compare(const tuple<VertexType, VertexType, double> &t1, const tuple<VertexType, VertexType, double> &t2);
 
 // get the length of array
 template<typename T>
-const size_t len(const T &arr) {
+size_t len(const T &arr) {
     return sizeof arr / sizeof arr[0];
 }
