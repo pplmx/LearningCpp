@@ -8,7 +8,7 @@ UndirectedGraph::UndirectedGraph() {
     this->graph = new Graph;
 }
 
-UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set) {
+UndirectedGraph::UndirectedGraph(const set<edge_tuple> &edge_set) {
     // init edge_set(to remove the repeated edge)
     this->set_edge_set(edge_set);
 
@@ -40,8 +40,8 @@ UndirectedGraph::UndirectedGraph(set<edge_tuple> edge_set) {
         v = get<1>(edge);
 
         // find the index of a node in adj_multi_list
-        u_idx = this->locate_vertex(this->graph, u);
-        v_idx = this->locate_vertex(this->graph, v);
+        u_idx = UndirectedGraph::locate_vertex(this->graph, u);
+        v_idx = UndirectedGraph::locate_vertex(this->graph, v);
 
         // init edge to be not visited and set the weight of a edge
         edge_ptr->is_visited = false;
@@ -122,8 +122,8 @@ void UndirectedGraph::set_vertex_set(set<edge_tuple> edges) {
     });
 }
 
-void UndirectedGraph::set_edge_set(set<edge_tuple> edges) {
-    for (const auto& edge : edges) {
+void UndirectedGraph::set_edge_set(const set<edge_tuple> &edges) {
+    for (const auto &edge : edges) {
         this->edge_set.insert(edge);
     }
 }

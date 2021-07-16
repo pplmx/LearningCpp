@@ -42,9 +42,7 @@ class UndirectedGraph {
 public:
     UndirectedGraph();
 
-    UndirectedGraph(set<tuple<VertexType, VertexType>> edge_set);
-
-    UndirectedGraph(set<edge_tuple> edge_set);
+    explicit UndirectedGraph(const set<edge_tuple> &edge_set);
 
     UndirectedGraph(const UndirectedGraph &obj);
 
@@ -72,7 +70,7 @@ private:
 
     void set_vertex_set(set<edge_tuple> edges);
 
-    void set_edge_set(set<edge_tuple> edges);
+    void set_edge_set(const set<edge_tuple> &edges);
 
     static int locate_vertex(Graph *g, VertexType v);
 };
